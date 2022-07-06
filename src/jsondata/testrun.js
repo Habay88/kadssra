@@ -1,7 +1,7 @@
 import React ,{StrictMode}from 'react';
 import axios from 'react-axios'
 
-export const  testrun = [
+export const    testrun = [
   
 {NAME:'EL RUFAI NASIRU AHMED', NIN:50579994877},
 {NAME:'HADIZA SABUWA BALARABE', NIN:16180626411},

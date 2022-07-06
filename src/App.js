@@ -1,8 +1,8 @@
-import logo from './logo.svg';
 import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import React,{Component} from 'react';
  import ReactHTML from 'react-html-to-excel';
+ import { GridComponent, Inject, ColumnsDirective, ColumnDirective, Search, Page } from '@syncfusion/ej2-react-grids';
 import axios from 'axios';
 import { testrun } from './jsondata/testrun';
 import {kadnin} from './jsondata/kadnin';
@@ -10,22 +10,30 @@ import {kadnin} from './jsondata/kadnin';
 var allDetails =  [];
 export default class App extends Component {
   state = {
-    clients: [], 
+    clients: [],loading : true
   };
 
    componentDidMount() {
     this.getDetails()
+    this.setState({clients:allDetails})
+    //console.log(this.state.clients)
  
   }
 
    getDetails(){
-    kadnin.map(i =>{
+    testrun.map(i =>{
      var  id = i.NIN
       axios.get("https://kadsrramiddlewaredev.azurewebsites.net/api/Enrollments/get-kadsrrainfo/"+ id)
       .then(res => {
-        allDetails.push(res.data)
-        console.log(res.data)
+        allDetails.push(res.data.data)
+     //   console.log(res.data.data)
       })
+      .then(()=> {
+        this.setState({clients: allDetails})
+        this.setState({loading: false})
+        console.table(this.state.clients)
+      }
+      )
       .catch(err => console.log(err))
     })
 }
@@ -34,9 +42,10 @@ export default class App extends Component {
     
     return (
       <>
-       
-        
-          <h2 className='text-center text-info mt-3'>KADSSRA DETAILS</h2>
+
+       {this.state.loading ? null : 
+       <>
+       <h2 className='text-center text-info mt-3'>KADSSRA DETAILS</h2>
       <section className='py-4 container'>
         <div className='row justify-content-center'>
           <div className='col-12'>
@@ -63,11 +72,14 @@ export default class App extends Component {
             <td>Aztec code</td>
               </tr>
             </thead>
-            <tbody>   
-          {kadnin.map((item, i ) => (
+            <tbody> 
+                
+          {this.state.clients && this.state.clients.map((items, i ) => (
             <tr key={i}>
-              <td>{item.NAME}</td>
-              <td>{item.NIN}</td>
+              <td>{items.id}</td>
+              <td>{items.firstName}</td>
+              <td>{items.nin}</td>
+              {/* <td>{item.NIN}</td>
               <td>{item.fullName}</td>
               <td>{item.dob}</td>
               <td>{item.gender}</td>
@@ -79,7 +91,7 @@ export default class App extends Component {
               <td>{item.maidenName}</td>
               <td>{item.email}</td>
               <td>{item.title}</td>
-              <td>{item.aztecCode}</td>
+              <td>{item.aztecCode}</td> */}
             </tr>
          ))}
       </tbody>
@@ -87,6 +99,10 @@ export default class App extends Component {
      
       </div>
       </section>
+       </>
+       }
+        
+          
 </>
   );     
 }}
