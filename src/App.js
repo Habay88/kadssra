@@ -73,8 +73,9 @@ export default class App extends Component {
             </thead>
             <tbody> 
                 
-          {this.state.clients.map((items, i ) => (
-            <tr key={i}>
+          {this.state.clients.map((items ) => (
+            <tr>
+              <div></div>
               <td>{this.state.clients.id}</td>
               <td>{this.state.clients.nin}</td>
                <td>{this.state.firstName}</td>
