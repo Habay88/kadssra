@@ -10,33 +10,32 @@ import {kadnin} from './jsondata/kadnin';
 var allDetails =  [];
 export default class App extends Component {
   state = {
-    clients: [],loading : true
+    clients: [testrun],loading : true
   };
 
-   componentDidMount() {
-    this.getDetails()
-    this.setState({clients:allDetails})
-    //console.log(this.state.clients)
+    componentDidMount() {
+    
+      testrun.map(i =>{
+       var  id = i.NIN
+        axios.get("https://kadsrramiddlewaredev.azurewebsites.net/api/Enrollments/get-kadsrrainfo/"+ id)
+        .then(res => {
+          allDetails.push(res.data.data)
+       //   console.log(res.data.data)
+        })
+        .then(()=> {
+          this.setState({clients: allDetails})
+          this.setState({loading: false})
+          console.table(this.state.clients)
+        }
+        )
+        .catch(err => console.log(err))
+      })
+  
+  
  
   }
 
-   getDetails(){
-    testrun.map(i =>{
-     var  id = i.NIN
-      axios.get("https://kadsrramiddlewaredev.azurewebsites.net/api/Enrollments/get-kadsrrainfo/"+ id)
-      .then(res => {
-        allDetails.push(res.data.data)
-     //   console.log(res.data.data)
-      })
-      .then(()=> {
-        this.setState({clients: allDetails})
-        this.setState({loading: false})
-        console.table(this.state.clients)
-      }
-      )
-      .catch(err => console.log(err))
-    })
-}
+ 
 
   render() {
     
@@ -74,24 +73,24 @@ export default class App extends Component {
             </thead>
             <tbody> 
                 
-          {this.state.clients && this.state.clients.map((items, i ) => (
+          {this.state.clients.map((items, i ) => (
             <tr key={i}>
-              <td>{items.id}</td>
-              <td>{items.firstName}</td>
-              <td>{items.nin}</td>
-              {/* <td>{item.NIN}</td>
-              <td>{item.fullName}</td>
-              <td>{item.dob}</td>
-              <td>{item.gender}</td>
-              <td>{item.telephone}</td>
-              <td>{item.photo}</td>
-              <td>{item.kadsrraId}</td>
-              <td>{item.middleName}</td>
-              <td>{item.otherName}</td>
-              <td>{item.maidenName}</td>
-              <td>{item.email}</td>
-              <td>{item.title}</td>
-              <td>{item.aztecCode}</td> */}
+              <td>{this.state.clients.id}</td>
+              <td>{this.state.clients.nin}</td>
+               <td>{this.state.firstName}</td>
+              <td>{this.state.lastName}</td>
+              <td>{this.state.middleName}</td>
+              <td>{this.state.dob}</td>
+              <td>{this.state.gender}</td>
+              <td>{this.state.telephone}</td>
+              <td>{this.state.fullName}</td>
+              <td>{this.state.kadssraId}</td>
+              <td>{this.state.kadssraId}</td>
+              <td>{this.state.kadssraId}</td>
+              <td>{this.state.kadssraId}</td>
+              <td>{this.state.kadssraId}</td>
+              <td>{this.state.kadssraId}</td> 
+              <td>{this.state.kadssraId}</td>
             </tr>
          ))}
       </tbody>
