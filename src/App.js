@@ -10,7 +10,8 @@ import {kadnin} from './jsondata/kadnin';
 var allDetails =  [];
 export default class App extends Component {
   state = {
-    clients: [testrun],loading : true
+    clients: [testrun],
+    loading : true
   };
 
     componentDidMount() {
@@ -22,13 +23,15 @@ export default class App extends Component {
           allDetails.push(res.data.data)
        //   console.log(res.data.data)
         })
-        .then(()=> {
+            .then(() => {
+            //console.log("What is this ? ",allDetails)
           this.setState({clients: allDetails})
-          this.setState({loading: false})
-          console.table(this.state.clients)
+                this.setState({ loading: false })
+
+         
         }
         )
-        .catch(err => console.log(err))
+        .catch(err => console.table(err))
       })
   
   
@@ -50,6 +53,7 @@ export default class App extends Component {
           <div className='col-12'>
         <ReactHTML ToExcel className="btn btn-info" table="emp-table" filename="KADSSRA EXCEL FILE" sheet="Sheet" buttonText="Export to Excel" />
         </div>
+       
           <table className='table table-striped' id='emp-table'>
             <thead>
               <tr>
@@ -71,29 +75,33 @@ export default class App extends Component {
             <td>Aztec code</td>
               </tr>
             </thead>
-            <tbody> 
-                
-          {this.state.clients.map((items ) => (
-            <tr>
-              <div></div>
-              <td>{this.state.clients.id}</td>
-              <td>{this.state.clients.nin}</td>
-               <td>{this.state.firstName}</td>
-              <td>{this.state.lastName}</td>
-              <td>{this.state.middleName}</td>
-              <td>{this.state.dob}</td>
-              <td>{this.state.gender}</td>
-              <td>{this.state.telephone}</td>
-              <td>{this.state.fullName}</td>
-              <td>{this.state.kadssraId}</td>
-              <td>{this.state.kadssraId}</td>
-              <td>{this.state.kadssraId}</td>
-              <td>{this.state.kadssraId}</td>
-              <td>{this.state.kadssraId}</td>
-              <td>{this.state.kadssraId}</td> 
-              <td>{this.state.kadssraId}</td>
-            </tr>
-         ))}
+            <tbody>   
+                                    {this.state.clients.map((items, i) => {
+
+                                        //let myValue = items.filter(function (val) { return val !== null; })
+                                        // console.log("These are my values ", myValue)
+                                        if (items) { return (
+                                            <tr key={i}>
+                                                <td>{items.id}</td>
+                                                <td>{items.nin}</td>
+                                                <td>{items.firstName}</td>
+                                                <td>{items.lastName}</td>
+                                                <td>{items.middleName}</td>
+                                                <td>{items.dob}</td>
+                                                <td>{items.gender}</td>
+                                                <td>{items.telephone}</td>
+                                                <td>{items.fullName}</td>
+                                                <td>{items.photo}</td>
+                                                <td>{items.kadssraId}</td>
+                                                <td>{items.kadssraId}</td>
+                                                <td>{items.kadssraId}</td>
+                                                <td>{items.kadssraId}</td>
+                                                <td>{items.kadssraId}</td>
+                                                <td>{items.kadssraId}</td>
+                                            </tr>
+                                        )
+                                    }
+                                    })}
       </tbody>
           </table>
      
