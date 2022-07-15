@@ -10,7 +10,7 @@ import {kadnin} from './jsondata/kadnin';
 var allDetails =  [];
 export default class App extends Component {
   state = {
-    clients: [],loading : true
+    clients: [testrun],loading : true
   };
 
     componentDidMount() {
@@ -73,8 +73,9 @@ export default class App extends Component {
             </thead>
             <tbody> 
                 
-          {this.state.clients.map((items, i ) => (
-            <tr key={i}>
+          {this.state.clients.map((items ) => (
+            <tr>
+              <div></div>
               <td>{this.state.clients.id}</td>
               <td>{this.state.clients.nin}</td>
                <td>{this.state.firstName}</td>
