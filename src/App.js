@@ -10,13 +10,13 @@ import {kadnin} from './jsondata/kadnin';
 var allDetails =  [];
 export default class App extends Component {
   state = {
-    clients: [testrun],
+    clients: [testrun,kadnin],
     loading : true
   };
 
     componentDidMount() {
     
-      testrun.map(i =>{
+      kadnin.map(i =>{
        var  id = i.NIN
         axios.get("https://kadsrramiddlewaredev.azurewebsites.net/api/Enrollments/get-kadsrrainfo/"+ id)
         .then(res => {
@@ -57,22 +57,19 @@ export default class App extends Component {
           <table className='table table-striped' id='emp-table'>
             <thead>
               <tr>
-            <td>Name</td>
-            <td>NIN</td>
+            <td>TITLE</td>
+            <td>Full Name</td>
             <td>First Name</td>
             <td>Last Name</td>
-            <td>Full Name</td>
-            <td>DOB</td>
-            <td>Gender</td>
+            <td>ID</td>
+            <td>NIN</td>
+            <td>E-MAIL</td>
+            <td>D.O.B</td>
             <td>Telephone</td>
-            <td>Photo</td>
+            <td>Gender</td>
             <td>KADSSRA ID</td>
-            <td>Middle Name</td>
-            <td>Other Name</td>
-            <td>Maiden Name</td>
-            <td>Email</td>
-            <td>Title</td>
-            <td>Aztec code</td>
+            <td>Photo</td>
+            <td>AZTEC CODE</td>
               </tr>
             </thead>
             <tbody>   
@@ -82,22 +79,22 @@ export default class App extends Component {
                                         // console.log("These are my values ", myValue)
                                         if (items) { return (
                                             <tr key={i}>
-                                                <td>{items.id}</td>
-                                                <td>{items.nin}</td>
+                                                <td>{items.title}</td>
+                                                <td>{items.fullName}</td>
                                                 <td>{items.firstName}</td>
                                                 <td>{items.lastName}</td>
-                                                <td>{items.middleName}</td>
+                                          
+                                                <td>{items.id}</td>
+                                                <td>{items.nin}</td>
+                                                <td>{items.email}</td>
                                                 <td>{items.dob}</td>
-                                                <td>{items.gender}</td>
                                                 <td>{items.telephone}</td>
-                                                <td>{items.fullName}</td>
+                                                <td>{items.gender}</td>
+                                                
+                                                <td>{items.kadsrraId}</td>
                                                 <td>{items.photo}</td>
-                                                <td>{items.kadssraId}</td>
-                                                <td>{items.kadssraId}</td>
-                                                <td>{items.kadssraId}</td>
-                                                <td>{items.kadssraId}</td>
-                                                <td>{items.kadssraId}</td>
-                                                <td>{items.kadssraId}</td>
+                                                <td>{items.aztecCode}</td>
+                                                
                                             </tr>
                                         )
                                     }
